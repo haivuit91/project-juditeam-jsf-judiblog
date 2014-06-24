@@ -40,7 +40,7 @@ public class UserDAO implements UserDAOService {
         List<User> userList = new ArrayList<>();
         try {
             Connection conn = ConnectionFactory.getConnection();
-            String sql = "select * from tblUser";
+            String sql = "select * from tbl_user";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
@@ -50,16 +50,16 @@ public class UserDAO implements UserDAOService {
                 user.setPwd(rs.getString("pwd"));
                 user.setFullName(rs.getString("fullName"));
                 user.setBirthday(rs.getDate("birthday"));
-                user.setGender(rs.getBoolean("gender"));
+                user.setGender(rs.getInt("gender"));
                 user.setIdCard(rs.getString("idCard"));
-                user.setAddress(rs.getString("uAddress"));
+                user.setAddress(rs.getString("userAddress"));
                 user.setEmail(rs.getString("email"));
                 user.setPhone(rs.getString("phone"));
-                user.setPathImage(rs.getString("pathImage"));
+                user.setPathImage(rs.getString("imagePath"));
                 Role role = RoleDAO.getInstance().getRoleByID(rs.getInt("roleID"));
                 user.setRole(role);
                 user.setIdActive(rs.getString("idActive"));
-                user.setIsActive(rs.getBoolean("isActive"));
+                user.setActive(rs.getInt("isActive"));
                 userList.add(user);
             }
         } catch (SQLException | ClassNotFoundException e) {
@@ -78,7 +78,7 @@ public class UserDAO implements UserDAOService {
         List<User> userList = new ArrayList<>();
         try {
             Connection conn = ConnectionFactory.getConnection();
-            String sql = "select * from tblUser where userName like '" + "%" + userName + "%" + "'";
+            String sql = "select * from tbl_user where userName like '" + "%" + userName + "%" + "'";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
@@ -88,16 +88,16 @@ public class UserDAO implements UserDAOService {
                 user.setPwd(rs.getString("pwd"));
                 user.setFullName(rs.getString("fullName"));
                 user.setBirthday(rs.getDate("birthday"));
-                user.setGender(rs.getBoolean("gender"));
+                user.setGender(rs.getInt("gender"));
                 user.setIdCard(rs.getString("idCard"));
-                user.setAddress(rs.getString("uAddress"));
+                user.setAddress(rs.getString("userAddress"));
                 user.setEmail(rs.getString("email"));
                 user.setPhone(rs.getString("phone"));
-                user.setPathImage(rs.getString("pathImage"));
+                user.setPathImage(rs.getString("imagePath"));
                 Role role = RoleDAO.getInstance().getRoleByID(rs.getInt("roleID"));
                 user.setRole(role);
                 user.setIdActive(rs.getString("idActive"));
-                user.setIsActive(rs.getBoolean("isActive"));
+                user.setActive(rs.getInt("isActive"));
                 userList.add(user);
             }
         } catch (SQLException | ClassNotFoundException e) {
@@ -116,7 +116,7 @@ public class UserDAO implements UserDAOService {
         User user = new User();
         try {
             Connection conn = ConnectionFactory.getConnection();
-            String sql = "select * from tblUser where userID = ?";
+            String sql = "select * from tbl_user where userID = ?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, userID);
             ResultSet rs = pstmt.executeQuery();
@@ -126,16 +126,16 @@ public class UserDAO implements UserDAOService {
                 user.setPwd(rs.getString("pwd"));
                 user.setFullName(rs.getString("fullName"));
                 user.setBirthday(rs.getDate("birthday"));
-                user.setGender(rs.getBoolean("gender"));
+                user.setGender(rs.getInt("gender"));
                 user.setIdCard(rs.getString("idCard"));
-                user.setAddress(rs.getString("uAddress"));
+                user.setAddress(rs.getString("userAddress"));
                 user.setEmail(rs.getString("email"));
                 user.setPhone(rs.getString("phone"));
-                user.setPathImage(rs.getString("pathImage"));
+                user.setPathImage(rs.getString("imagePath"));
                 Role role = RoleDAO.getInstance().getRoleByID(rs.getInt("roleID"));
                 user.setRole(role);
                 user.setIdActive(rs.getString("idActive"));
-                user.setIsActive(rs.getBoolean("isActive"));
+                user.setActive(rs.getInt("isActive"));
             }
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
@@ -148,7 +148,7 @@ public class UserDAO implements UserDAOService {
         User user = new User();
         try {
             Connection conn = ConnectionFactory.getConnection();
-            String sql = "select * from tblUser where userName = ?";
+            String sql = "select * from tbl_user where userName = ?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, userName);
             ResultSet rs = pstmt.executeQuery();
@@ -158,16 +158,16 @@ public class UserDAO implements UserDAOService {
                 user.setPwd(rs.getString("pwd"));
                 user.setFullName(rs.getString("fullName"));
                 user.setBirthday(rs.getDate("birthday"));
-                user.setGender(rs.getBoolean("gender"));
+                user.setGender(rs.getInt("gender"));
                 user.setIdCard(rs.getString("idCard"));
-                user.setAddress(rs.getString("uAddress"));
+                user.setAddress(rs.getString("userAddress"));
                 user.setEmail(rs.getString("email"));
                 user.setPhone(rs.getString("phone"));
-                user.setPathImage(rs.getString("pathImage"));
+                user.setPathImage(rs.getString("imagePath"));
                 Role role = RoleDAO.getInstance().getRoleByID(rs.getInt("roleID"));
                 user.setRole(role);
                 user.setIdActive(rs.getString("idActive"));
-                user.setIsActive(rs.getBoolean("isActive"));
+                user.setActive(rs.getInt("isActive"));
             }
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
@@ -185,7 +185,7 @@ public class UserDAO implements UserDAOService {
         List<User> userList = new ArrayList<>();
         try {
             Connection conn = ConnectionFactory.getConnection();
-            String sql = "select * from tblUser where roleID = ?";
+            String sql = "select * from tbl_user where roleID = ?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, roleID);
             ResultSet rs = pstmt.executeQuery();
@@ -196,13 +196,13 @@ public class UserDAO implements UserDAOService {
                 user.setPwd(rs.getString("pwd"));
                 user.setFullName(rs.getString("fullName"));
                 user.setBirthday(rs.getDate("birthday"));
-                user.setGender(rs.getBoolean("gender"));
+                user.setGender(rs.getInt("gender"));
                 user.setIdCard(rs.getString("idCard"));
-                user.setAddress(rs.getString("uAddress"));
+                user.setAddress(rs.getString("userAddress"));
                 user.setEmail(rs.getString("email"));
                 user.setPhone(rs.getString("phone"));
-                user.setPathImage(rs.getString("pathImage"));
-                user.setIsActive(rs.getBoolean("isActive"));
+                user.setPathImage(rs.getString("imagePath"));
+                user.setActive(rs.getInt("isActive"));
                 userList.add(user);
             }
         } catch (SQLException | ClassNotFoundException e) {
@@ -222,7 +222,7 @@ public class UserDAO implements UserDAOService {
         List<User> userList = new ArrayList<>();
         try {
             Connection conn = ConnectionFactory.getConnection();
-            String sql = "select * from tblUser where " + key + " like '" + "%" + value + "%" + "'";
+            String sql = "select * from tbl_user where " + key + " like '" + "%" + value + "%" + "'";
             PreparedStatement pstmt = conn.prepareStatement(sql);
                 ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
@@ -232,15 +232,15 @@ public class UserDAO implements UserDAOService {
                 user.setPwd(rs.getString("pwd"));
                 user.setFullName(rs.getString("fullName"));
                 user.setBirthday(rs.getDate("birthday"));
-                user.setGender(rs.getBoolean("gender"));
+                user.setGender(rs.getInt("gender"));
                 user.setIdCard(rs.getString("idCard"));
-                user.setAddress(rs.getString("uAddress"));
+                user.setAddress(rs.getString("userAddress"));
                 user.setEmail(rs.getString("email"));
                 user.setPhone(rs.getString("phone"));
-                user.setPathImage(rs.getString("pathImage"));
+                user.setPathImage(rs.getString("imagePath"));
                 Role role = RoleDAO.getInstance().getRoleByID(rs.getInt("roleID"));
                 user.setRole(role);
-                user.setIsActive(rs.getBoolean("isActive"));
+                user.setActive(rs.getInt("isActive"));
                 userList.add(user);
             }
         } catch (SQLException | ClassNotFoundException e) {
@@ -260,7 +260,7 @@ public class UserDAO implements UserDAOService {
         boolean isCheck = false;
         try {
             Connection conn = ConnectionFactory.getConnection();
-            String sql = "select * from tblUser where userName = ? and pwd = ?";
+            String sql = "select * from tbl_user where userName = ? and pwd = ?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, userName);
             pstmt.setString(2, pwd);
@@ -284,7 +284,7 @@ public class UserDAO implements UserDAOService {
         boolean isCheck = false;
         try {
             Connection conn = ConnectionFactory.getConnection();
-            String sql = "select * from tblUser where userName = ?";
+            String sql = "select * from tbl_user where userName = ?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, userName);
             ResultSet rs = pstmt.executeQuery();
@@ -307,13 +307,14 @@ public class UserDAO implements UserDAOService {
         boolean isCheck = false;
         try {
             Connection conn = ConnectionFactory.getConnection();
-            String sql = "insert into tblUser values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            String sql = "insert into tbl_user(userName, pwd, fullName, birthday, gender, idCard, userAddress, email,"
+                    + "phone, imagePath, roleID, idActive, isActive) values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, user.getUserName());
             pstmt.setString(2, user.getPwd());
             pstmt.setString(3, user.getFullName());
             pstmt.setDate(4, (java.sql.Date) user.getBirthday());
-            pstmt.setBoolean(5, user.isGender());
+            pstmt.setInt(5, user.getGender());
             pstmt.setString(6, user.getIdCard());
             pstmt.setString(7, user.getAddress());
             pstmt.setString(8, user.getEmail());
@@ -321,7 +322,7 @@ public class UserDAO implements UserDAOService {
             pstmt.setString(10, user.getPathImage());
             pstmt.setInt(11, user.getRole().getRoleID());
             pstmt.setString(12, user.getIdActive());
-            pstmt.setBoolean(13, user.isIsActive());
+            pstmt.setInt(13, user.getActive());
 
             pstmt.executeUpdate();
             isCheck = true;
@@ -341,12 +342,12 @@ public class UserDAO implements UserDAOService {
         boolean isCheck = false;
         try {
             Connection conn = ConnectionFactory.getConnection();
-            String sql = "update tblUser set fullName = ?, birthday = ?, gender = ?, idCard = ?, uAddress = ?, email = ?,"
+            String sql = "update tbl_user set fullName = ?, birthday = ?, gender = ?, idCard = ?, userAddress = ?, email = ?,"
                     + "phone = ? where userID = ?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, user.getFullName());
             pstmt.setDate(2, (java.sql.Date) user.getBirthday());
-            pstmt.setBoolean(3, user.isGender());
+            pstmt.setInt(3, user.getGender());
             pstmt.setString(4, user.getIdCard());
             pstmt.setString(5, user.getAddress());
             pstmt.setString(6, user.getEmail());
@@ -371,12 +372,12 @@ public class UserDAO implements UserDAOService {
         boolean isCheck = false;
         try {
             Connection conn = ConnectionFactory.getConnection();
-            String sql = "update tblUser set fullName = ?, birthday = ?, gender = ?, uAddress = ?, email = ?,"
-                    + "phone = ?, pathImage = ?, roleID=?, pwd=?, idCard = ? where userID = ?";
+            String sql = "update tbl_user set fullName = ?, birthday = ?, gender = ?, userAddress = ?, email = ?,"
+                    + "phone = ?, imagePath = ?, roleID=?, pwd=?, idCard = ? where userID = ?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, user.getFullName());
             pstmt.setDate(2, (java.sql.Date) user.getBirthday());
-            pstmt.setBoolean(3, user.isGender());
+            pstmt.setInt(3, user.getGender());
             pstmt.setString(4, user.getAddress());
             pstmt.setString(5, user.getEmail());
             pstmt.setString(6, user.getPhone());
@@ -405,7 +406,7 @@ public class UserDAO implements UserDAOService {
         boolean isCheck = false;
         try {
             Connection conn = ConnectionFactory.getConnection();
-            String sql = "update tblUser set isActive='false' where userID = ?";
+            String sql = "update tbl_user set isActive='false' where userID = ?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, user.getUserID());
             pstmt.executeUpdate();
@@ -426,7 +427,7 @@ public class UserDAO implements UserDAOService {
         boolean isCheck = false;
         try {
             Connection conn = ConnectionFactory.getConnection();
-            String sql = "update tblUser set isActive='true', idActive='' where userID = ?";
+            String sql = "update tbl_user set isActive='true', idActive='' where userID = ?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, user.getUserID());
             pstmt.executeUpdate();
@@ -447,7 +448,7 @@ public class UserDAO implements UserDAOService {
         boolean isCheck = false;
         try {
             Connection conn = ConnectionFactory.getConnection();
-            String sql = "delete tblUser where userID = ?";
+            String sql = "delete from tbl_user where userID = ?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, userID);
             pstmt.executeUpdate();
@@ -463,7 +464,7 @@ public class UserDAO implements UserDAOService {
         boolean isCheck = false;
         try {
             Connection conn = ConnectionFactory.getConnection();
-            String sql = "update tblUser set pwd = ? where userID = ?";
+            String sql = "update tbl_user set pwd = ? where userID = ?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, user.getPwd());
             pstmt.setInt(2, user.getUserID());
@@ -480,7 +481,7 @@ public class UserDAO implements UserDAOService {
         boolean isCheck = false;
         try {
             Connection conn = ConnectionFactory.getConnection();
-            String sql = "update tblUser set pathImage = ? where userID = ?";
+            String sql = "update tbl_user set imagePath = ? where userID = ?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, user.getPathImage());
             pstmt.setInt(2, user.getUserID());

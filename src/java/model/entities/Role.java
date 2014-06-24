@@ -16,7 +16,7 @@ public class Role {
     private int roleID;
     private String roleName;
     private String pathImage;
-    private boolean isActive;
+    private int isActive;
 
     List<User> userList = null;
     
@@ -24,7 +24,7 @@ public class Role {
 
     }
 
-    public Role(int roleID, String roleName, String pathImage, boolean isActive) {
+    public Role(int roleID, String roleName, String pathImage, int isActive) {
         this.roleID = roleID;
         this.roleName = roleName;
         this.pathImage = pathImage;
@@ -55,11 +55,11 @@ public class Role {
         this.pathImage = pathImage;
     }
 
-    public boolean isActive() {
+    public int getActive() {
         return isActive;
     }
 
-    public void setActive(boolean isActive) {
+    public void setActive(int isActive) {
         this.isActive = isActive;
     }
 

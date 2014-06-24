@@ -19,7 +19,7 @@ public class User {
     private String pwd;
     private String fullName;
     private Date birthday;
-    private boolean gender;
+    private int gender;
     private String idCard;
     private String address;
     private String email;
@@ -27,7 +27,7 @@ public class User {
     private String pathImage;
     private Role role;
     private String idActive;
-    private boolean isActive;
+    private int active;
     
     private List<Post> postList = null;
     private List<Project> projectList = null;
@@ -35,7 +35,7 @@ public class User {
     public User() {
     }
 
-    public User(int userID, String userName, String pwd, String fullName, Date birthday, boolean gender, String idCard, String address, String email, String phone, String pathImage, Role role, String idActive, boolean isActive) {
+    public User(int userID, String userName, String pwd, String fullName, Date birthday, int gender, String idCard, String address, String email, String phone, String pathImage, Role role, String idActive, int active) {
         this.userID = userID;
         this.userName = userName;
         this.pwd = pwd;
@@ -49,7 +49,7 @@ public class User {
         this.pathImage = pathImage;
         this.role = role;
         this.idActive = idActive;
-        this.isActive = isActive;
+        this.active = active;
     }
 
     public int getUserID() {
@@ -92,11 +92,11 @@ public class User {
         this.birthday = birthday;
     }
 
-    public boolean isGender() {
+    public int getGender() {
         return gender;
     }
 
-    public void setGender(boolean gender) {
+    public void setGender(int gender) {
         this.gender = gender;
     }
 
@@ -149,12 +149,12 @@ public class User {
         this.role = role;
     }
 
-    public boolean isIsActive() {
-        return isActive;
+    public int getActive() {
+        return active;
     }
 
-    public void setIsActive(boolean isActive) {
-        this.isActive = isActive;
+    public void setActive(int active) {
+        this.active = active;
     }
 
     public String getIdActive() {
