@@ -20,7 +20,7 @@ public interface RoleDAOService {
      * @param isActive The role's status.
      * @return role list by status
      */
-    public List<Role> getRoles(boolean isActive);
+    public List<Role> getRoles();
     public Role getRoleByID(int roleID);
     public Role getRolesByName(String roleName);
     

@@ -31,20 +31,19 @@ public class RoleDAO implements RoleDAOService {
     }
 
     @Override
-    public List<Role> getRoles(boolean isActive) {
+    public List<Role> getRoles() {
         List<Role> roleList = new ArrayList<>();
         try {
             Connection conn = ConnectionFactory.getConnection();
-            String sql = "select * from tblRole where isActive = ?";
+            String sql = "select * from tbl_role";
             PreparedStatement pstmt = conn.prepareStatement(sql);
-            pstmt.setBoolean(1, isActive);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
                 Role role = new Role();
                 role.setRoleID(rs.getInt("roleID"));
                 role.setRoleName(rs.getString("roleName"));
-                role.setPathImage(rs.getString("pathImage"));
-                role.setActive(rs.getBoolean("isActive"));
+                role.setPathImage(rs.getString("imagePath"));
+                role.setActive(rs.getInt("isActive"));
                 List<User> userList = UserDAO.getInstance().getUserByRole(rs.getInt("roleID"));
                 role.setUserList(userList);
                 roleList.add(role);
@@ -60,15 +59,15 @@ public class RoleDAO implements RoleDAOService {
         Role role = new Role();
         try {
             Connection conn = ConnectionFactory.getConnection();
-            String sql = "select * from tblRole where roleID = ?";
+            String sql = "select * from tbl_role where roleID = ?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, roleID);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
                 role.setRoleID(rs.getInt("roleID"));
                 role.setRoleName(rs.getString("roleName"));
-                role.setPathImage(rs.getString("pathImage"));
-                role.setActive(rs.getBoolean("isActive"));
+                role.setPathImage(rs.getString("imagePath"));
+                role.setActive(rs.getInt("isActive"));
                 List<User> userList = UserDAO.getInstance().getUserByRole(rs.getInt("roleID"));
                 role.setUserList(userList);
             }
@@ -83,15 +82,15 @@ public class RoleDAO implements RoleDAOService {
          Role role = new Role();
         try {
             Connection conn = ConnectionFactory.getConnection();
-            String sql = "select * from tblRole where roleName = ?";
+            String sql = "select * from tbl_role where roleName = ?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, roleName);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
                 role.setRoleID(rs.getInt("roleID"));
                 role.setRoleName(rs.getString("roleName"));
-                role.setPathImage(rs.getString("pathImage"));
-                role.setActive(rs.getBoolean("isActive"));
+                role.setPathImage(rs.getString("imagePath"));
+                role.setActive(rs.getInt("isActive"));
                 List<User> userList = UserDAO.getInstance().getUserByRole(rs.getInt("roleID"));
                 role.setUserList(userList);
             }
@@ -106,11 +105,11 @@ public class RoleDAO implements RoleDAOService {
         boolean isCheck = false;
         try {
             Connection conn = ConnectionFactory.getConnection();
-            String sql = "insert into tblRole values (?,?,?)";
+            String sql = "insert into tbl_role values (?,?,?)";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, role.getRoleName());
             pstmt.setString(2, role.getPathImage());
-            pstmt.setBoolean(3, role.isActive());
+            pstmt.setInt(3, role.getActive());
             pstmt.executeUpdate();
             isCheck = true;
         } catch (SQLException | ClassNotFoundException e) {
@@ -124,11 +123,11 @@ public class RoleDAO implements RoleDAOService {
         boolean isCheck = false;
         try {
             Connection conn = ConnectionFactory.getConnection();
-            String sql = "update tblRole set roleName = ?, pathImage = ?, isActive = ? where roleID = ?";
+            String sql = "update tbl_role set roleName = ?, imagePath = ?, isActive = ? where roleID = ?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, role.getRoleName());
             pstmt.setString(2, role.getPathImage());
-            pstmt.setBoolean(3, role.isActive());
+            pstmt.setInt(3, role.getActive());
             pstmt.setInt(4, role.getRoleID());
             pstmt.executeUpdate();
             isCheck = true;
@@ -143,7 +142,7 @@ public class RoleDAO implements RoleDAOService {
         boolean isCheck = false;
         try {
             Connection conn = ConnectionFactory.getConnection();
-            String sql = "update tblRole set isActive = 'false' where roleID = ?";
+            String sql = "update tbl_role set isActive = 'false' where roleID = ?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, role.getRoleID());
             pstmt.executeUpdate();
@@ -159,7 +158,7 @@ public class RoleDAO implements RoleDAOService {
         boolean isCheck = false;
         try {
             Connection conn = ConnectionFactory.getConnection();
-            String sql = "update tblRole set isActive = 'true' where roleID = ?";
+            String sql = "update tbl_role set isActive = 'true' where roleID = ?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, role.getRoleID());
             pstmt.executeUpdate();
@@ -175,7 +174,7 @@ public class RoleDAO implements RoleDAOService {
         boolean isCheck = false;
         try {
             Connection conn = ConnectionFactory.getConnection();
-            String sql = "delete tblRole where roleID = ?";
+            String sql = "delete tbl_role where roleID = ?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, roleID);
             pstmt.executeUpdate();
