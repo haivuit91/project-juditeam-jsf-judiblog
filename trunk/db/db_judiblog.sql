@@ -18,6 +18,63 @@ USE `db_judiblog`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `tbl_category`
+--
+
+DROP TABLE IF EXISTS `tbl_category`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tbl_category` (
+  `catID` int(11) NOT NULL AUTO_INCREMENT,
+  `catName` varchar(45) NOT NULL,
+  `isActive` tinyint(1) NOT NULL,
+  PRIMARY KEY (`catID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tbl_category`
+--
+
+LOCK TABLES `tbl_category` WRITE;
+/*!40000 ALTER TABLE `tbl_category` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tbl_category` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tbl_post`
+--
+
+DROP TABLE IF EXISTS `tbl_post`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tbl_post` (
+  `postID` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(200) NOT NULL,
+  `content` varchar(10000) NOT NULL,
+  `imagePath` varchar(100) DEFAULT NULL,
+  `postDate` date NOT NULL,
+  `userID` int(11) NOT NULL,
+  `catID` int(11) NOT NULL,
+  `isActive` tinyint(1) NOT NULL,
+  PRIMARY KEY (`postID`),
+  KEY `userID_idx` (`userID`),
+  KEY `fk_Cat` (`catID`),
+  CONSTRAINT `fk_Cat` FOREIGN KEY (`catID`) REFERENCES `tbl_category` (`catID`),
+  CONSTRAINT `fk_User` FOREIGN KEY (`userID`) REFERENCES `tbl_user` (`userID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tbl_post`
+--
+
+LOCK TABLES `tbl_post` WRITE;
+/*!40000 ALTER TABLE `tbl_post` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tbl_post` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `tbl_project`
 --
 
@@ -174,4 +231,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-06-24 19:47:58
+-- Dump completed on 2014-06-24 20:12:55
