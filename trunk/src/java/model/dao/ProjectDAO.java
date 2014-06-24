@@ -15,8 +15,6 @@ import java.util.List;
 import model.dao.service.ProjectDAOService;
 import model.entities.Project;
 import model.entities.ProjectType;
-import model.entities.Role;
-import model.entities.User;
 
 /**
  *
@@ -38,7 +36,7 @@ public class ProjectDAO implements ProjectDAOService {
         List<Project> projectList = new ArrayList<>();
         try {
             Connection conn = ConnectionFactory.getConnection();
-            String sql = "select * from tblProject";
+            String sql = "select * from tbl_project";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
@@ -51,7 +49,7 @@ public class ProjectDAO implements ProjectDAOService {
                 int typeID = rs.getInt("typeID");
                 ProjectType type = ProjectTypeDAO.getInstance().getTypeByID(typeID);
                 project.setType(type);
-                project.setIsActive(rs.getBoolean("isActive"));
+                project.setActive(rs.getInt("isActive"));
                 project.setUserList(ProjectUserDAO.getInstance().getUserByProject(rs.getInt("projectID")));
                 project.setUserListNotJoin(ProjectUserDAO.getInstance().getUserNotJoin(rs.getInt("projectID")));
                 projectList.add(project);
@@ -67,7 +65,7 @@ public class ProjectDAO implements ProjectDAOService {
         Project project = new Project();
         try {
             Connection conn = ConnectionFactory.getConnection();
-            String sql = "select * from tblProject where projectID = ?";
+            String sql = "select * from tbl_project where projectID = ?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, projectID);
             ResultSet rs = pstmt.executeQuery();
@@ -80,7 +78,7 @@ public class ProjectDAO implements ProjectDAOService {
                 int typeID = rs.getInt("typeID");
                 ProjectType type = ProjectTypeDAO.getInstance().getTypeByID(typeID);
                 project.setType(type);
-                project.setIsActive(rs.getBoolean("isActive"));
+                project.setActive(rs.getInt("isActive"));
                 project.setUserList(ProjectUserDAO.getInstance().getUserByProject(rs.getInt("projectID")));
                 project.setUserListNotJoin(ProjectUserDAO.getInstance().getUserNotJoin(rs.getInt("projectID")));
             }
@@ -95,7 +93,7 @@ public class ProjectDAO implements ProjectDAOService {
         List<Project> projectList = new ArrayList<>();
         try {
             Connection conn = ConnectionFactory.getConnection();
-            String sql = "select * from tblProject where projectName = ?";
+            String sql = "select * from tbl_project where projectName = ?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, projectName);
             ResultSet rs = pstmt.executeQuery();
@@ -109,7 +107,7 @@ public class ProjectDAO implements ProjectDAOService {
                 int typeID = rs.getInt("typeID");
                 ProjectType type = ProjectTypeDAO.getInstance().getTypeByID(typeID);
                 project.setType(type);
-                project.setIsActive(rs.getBoolean("isActive"));
+                project.setActive(rs.getInt("isActive"));
                 project.setUserList(ProjectUserDAO.getInstance().getUserByProject(rs.getInt("projectID")));
                 project.setUserListNotJoin(ProjectUserDAO.getInstance().getUserNotJoin(rs.getInt("projectID")));
                 projectList.add(project);
@@ -125,14 +123,14 @@ public class ProjectDAO implements ProjectDAOService {
         boolean isCheck = false;
         try {
             Connection conn = ConnectionFactory.getConnection();
-            String sql = "insert into tblProject values(?,?,?,?,?,?)";
+            String sql = "insert into tbl_project(projectName, description, startDate, duration, typeID, isActive) values(?,?,?,?,?,?)";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, project.getProjectName());
             pstmt.setString(2, project.getDescription());
             pstmt.setDate(3, (Date) project.getStartDate());
             pstmt.setInt(4, project.getDuration());
             pstmt.setInt(5, project.getType().getTypeID());
-            pstmt.setBoolean(6, project.isIsActive());
+            pstmt.setInt(6, project.getActive());
 
             pstmt.executeUpdate();
             isCheck = true;
@@ -147,7 +145,7 @@ public class ProjectDAO implements ProjectDAOService {
         boolean isCheck = false;
         try {
             Connection conn = ConnectionFactory.getConnection();
-            String sql = "update tblProject set projectName = ?, description = ?, startDate = ?,"
+            String sql = "update tbl_project set projectName = ?, description = ?, startDate = ?,"
                     + "duration = ?, typeID = ?, isActive = ? where projectID = ?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, project.getProjectName());
@@ -155,9 +153,8 @@ public class ProjectDAO implements ProjectDAOService {
             pstmt.setDate(3, (Date) project.getStartDate());
             pstmt.setInt(4, project.getDuration());
             pstmt.setInt(5, project.getType().getTypeID());
-            pstmt.setBoolean(6, project.isIsActive());
+            pstmt.setInt(6, project.getActive());
             pstmt.setInt(7, project.getProjectID());
-            System.out.println("Statement:" + pstmt);
             pstmt.executeUpdate();
             isCheck = true;
         } catch (ClassNotFoundException | SQLException e) {
@@ -165,22 +162,17 @@ public class ProjectDAO implements ProjectDAOService {
         }
         return isCheck;
     }
-
+    
     @Override
     public boolean deleteProject(int projectID) {
         boolean isCheck = false;
         try {
             Connection conn = ConnectionFactory.getConnection();
-            String sql = "delete tblProjectUserDetails where projectID = ?";
+            String sql = "delete tbl_project where projectID = ?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, projectID);
             pstmt.executeUpdate();
-                        
-            sql = "delete tblProject where projectID = ?";
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1, projectID);
-            pstmt.executeUpdate();
-            
+
             isCheck = true;
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
@@ -189,11 +181,11 @@ public class ProjectDAO implements ProjectDAOService {
     }
 
     @Override
-    public boolean activeProjectType(Project project) {
+    public boolean activeProject(Project project) {
         boolean isCheck = false;
         try {
             Connection conn = ConnectionFactory.getConnection();
-            String sql = "update tblProject set isActive = 'true' where projectID = ?";
+            String sql = "update tbl_project set isActive = '1' where projectID = ?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, project.getProjectID());
             pstmt.executeUpdate();
@@ -205,11 +197,11 @@ public class ProjectDAO implements ProjectDAOService {
     }
 
     @Override
-    public boolean inactiveProjectType(Project project) {
+    public boolean inactiveProject(Project project) {
         boolean isCheck = false;
         try {
             Connection conn = ConnectionFactory.getConnection();
-            String sql = "update tblProject set isActive = 'false' where projectID = ?";
+            String sql = "update tbl_project set isActive = '0' where projectID = ?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, project.getProjectID());
             pstmt.executeUpdate();
@@ -225,7 +217,7 @@ public class ProjectDAO implements ProjectDAOService {
         List<Project> projectList = new ArrayList<>();
         try {
             Connection conn = ConnectionFactory.getConnection();
-            String sql = "select * from tblProject where typeID = ?";
+            String sql = "select * from tbl_project where typeID = ?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, typeID);
             ResultSet rs = pstmt.executeQuery();
@@ -236,7 +228,7 @@ public class ProjectDAO implements ProjectDAOService {
                 project.setDescription(rs.getString("description"));
                 project.setStartDate(rs.getDate("startDate"));
                 project.setDuration(rs.getInt("duration"));
-                project.setIsActive(rs.getBoolean("isActive"));                
+                project.setActive(rs.getInt("isActive"));
                 project.setUserList(ProjectUserDAO.getInstance().getUserByProject(rs.getInt("projectID")));
                 projectList.add(project);
             }
@@ -245,22 +237,23 @@ public class ProjectDAO implements ProjectDAOService {
         }
         return projectList;
     }
-     @Override
+
+    @Override
     public List<Project> findProject(String key, String value) {
-         List<Project> projectList = new ArrayList<>();
+        List<Project> projectList = new ArrayList<>();
         try {
             Connection conn = ConnectionFactory.getConnection();
-            String sql = "select * from tblProject where " + key + " like '" + "%" + value + "%" + "'";
+            String sql = "select * from tbl_project where " + key + " like '" + "%" + value + "%" + "'";
             PreparedStatement pstmt = conn.prepareStatement(sql);
-                ResultSet rs = pstmt.executeQuery();
+            ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
-              Project project = new Project();
+                Project project = new Project();
                 project.setProjectID(rs.getInt("projectID"));
                 project.setProjectName(rs.getString("projectName"));
                 project.setDescription(rs.getString("description"));
                 project.setStartDate(rs.getDate("startDate"));
                 project.setDuration(rs.getInt("duration"));
-                project.setIsActive(rs.getBoolean("isActive"));                
+                project.setActive(rs.getInt("isActive"));
                 project.setUserList(ProjectUserDAO.getInstance().getUserByProject(rs.getInt("projectID")));
                 projectList.add(project);
             }
@@ -269,5 +262,5 @@ public class ProjectDAO implements ProjectDAOService {
         }
         return projectList;
     }
-    
+
 }

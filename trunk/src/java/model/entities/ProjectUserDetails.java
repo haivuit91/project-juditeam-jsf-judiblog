@@ -14,12 +14,12 @@ public class ProjectUserDetails {
     private int project_userID;
     private User user;
     private Project project;
-    private boolean creater;
+    private int creater;
 
     public ProjectUserDetails() {
     }
 
-    public ProjectUserDetails(int project_userID, User user, Project project, boolean creater) {
+    public ProjectUserDetails(int project_userID, User user, Project project, int creater) {
         this.project_userID = project_userID;
         this.user = user;
         this.project = project;
@@ -50,11 +50,11 @@ public class ProjectUserDetails {
         this.project = project;
     }
 
-    public boolean isCreater() {
+    public int getCreater() {
         return creater;
     }
 
-    public void setCreater(boolean creater) {
+    public void setCreater(int creater) {
         this.creater = creater;
     }
     

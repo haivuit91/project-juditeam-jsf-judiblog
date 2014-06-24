@@ -105,7 +105,7 @@ public class RoleDAO implements RoleDAOService {
         boolean isCheck = false;
         try {
             Connection conn = ConnectionFactory.getConnection();
-            String sql = "insert into tbl_role values (?,?,?)";
+            String sql = "insert into tbl_role(roleName, imagePath, isActive) values (?,?,?)";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, role.getRoleName());
             pstmt.setString(2, role.getPathImage());
@@ -142,7 +142,7 @@ public class RoleDAO implements RoleDAOService {
         boolean isCheck = false;
         try {
             Connection conn = ConnectionFactory.getConnection();
-            String sql = "update tbl_role set isActive = 'false' where roleID = ?";
+            String sql = "update tbl_role set isActive = '0' where roleID = ?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, role.getRoleID());
             pstmt.executeUpdate();
@@ -158,7 +158,7 @@ public class RoleDAO implements RoleDAOService {
         boolean isCheck = false;
         try {
             Connection conn = ConnectionFactory.getConnection();
-            String sql = "update tbl_role set isActive = 'true' where roleID = ?";
+            String sql = "update tbl_role set isActive = '1' where roleID = ?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, role.getRoleID());
             pstmt.executeUpdate();
@@ -174,7 +174,7 @@ public class RoleDAO implements RoleDAOService {
         boolean isCheck = false;
         try {
             Connection conn = ConnectionFactory.getConnection();
-            String sql = "delete tbl_role where roleID = ?";
+            String sql = "delete from tbl_role where roleID = ?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, roleID);
             pstmt.executeUpdate();

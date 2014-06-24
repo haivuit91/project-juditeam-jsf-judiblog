@@ -406,7 +406,7 @@ public class UserDAO implements UserDAOService {
         boolean isCheck = false;
         try {
             Connection conn = ConnectionFactory.getConnection();
-            String sql = "update tbl_user set isActive='false' where userID = ?";
+            String sql = "update tbl_user set isActive='0' where userID = ?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, user.getUserID());
             pstmt.executeUpdate();
@@ -427,7 +427,7 @@ public class UserDAO implements UserDAOService {
         boolean isCheck = false;
         try {
             Connection conn = ConnectionFactory.getConnection();
-            String sql = "update tbl_user set isActive='true', idActive='' where userID = ?";
+            String sql = "update tbl_user set isActive='1', idActive='' where userID = ?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, user.getUserID());
             pstmt.executeUpdate();
