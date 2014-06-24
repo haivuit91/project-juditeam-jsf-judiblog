@@ -36,7 +36,7 @@ public class ProjectUserDAO implements ProjectUserDAOService {
         List<ProjectUserDetails> pudList = new ArrayList<>();
         try {
             Connection conn = ConnectionFactory.getConnection();
-            String sql = "select * from tblProjectUserDetails";
+            String sql = "select * from tbl_project_user";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
@@ -44,7 +44,7 @@ public class ProjectUserDAO implements ProjectUserDAOService {
                 pud.setProject_userID(rs.getInt("project_userID"));
                 pud.setUser(UserDAO.getInstance().getUserByID(rs.getInt("userID")));
                 pud.setProject(ProjectDAO.getInstance().getProjectByID(rs.getInt("projectID")));
-                pud.setCreater(rs.getBoolean("isCreate"));
+                pud.setCreater(rs.getInt("isCreate"));
                 pudList.add(pud);
             }
         } catch (ClassNotFoundException | SQLException e) {
@@ -58,7 +58,7 @@ public class ProjectUserDAO implements ProjectUserDAOService {
         ProjectUserDetails pud = new ProjectUserDetails();
         try {
             Connection conn = ConnectionFactory.getConnection();
-            String sql = "select * from tblProjectUserDetails where project_userID = ?";
+            String sql = "select * from tbl_project_user where project_userID = ?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, puID);
             ResultSet rs = pstmt.executeQuery();
@@ -66,7 +66,7 @@ public class ProjectUserDAO implements ProjectUserDAOService {
                 pud.setProject_userID(rs.getInt("project_userID"));
                 pud.setUser(UserDAO.getInstance().getUserByID(rs.getInt("userID")));
                 pud.setProject(ProjectDAO.getInstance().getProjectByID(rs.getInt("projectID")));
-                pud.setCreater(rs.getBoolean("isCreate"));
+                pud.setCreater(rs.getInt("isCreate"));
             }
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
@@ -79,7 +79,7 @@ public class ProjectUserDAO implements ProjectUserDAOService {
         List<Project> projectList = new ArrayList<>();
         try {
             Connection conn = ConnectionFactory.getConnection();
-            String sql = "select projectID from tblProjectUserDetails where userID = ?";
+            String sql = "select projectID from tbl_project_user where userID = ?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, userID);
             ResultSet rs = pstmt.executeQuery();
@@ -98,7 +98,7 @@ public class ProjectUserDAO implements ProjectUserDAOService {
         List<User> userList = new ArrayList<>();
         try {
             Connection conn = ConnectionFactory.getConnection();
-            String sql = "select userID from tblProjectUserDetails where projectID = ?";
+            String sql = "select userID from tbl_project_user where projectID = ?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, projectID);
             ResultSet rs = pstmt.executeQuery();
@@ -117,8 +117,8 @@ public class ProjectUserDAO implements ProjectUserDAOService {
         List<User> userList = new ArrayList<>();
         try {
             Connection conn = ConnectionFactory.getConnection();
-            String sql = "select userID from tblUser except "
-                    + "select userID from tblProjectUserDetails where projectID = ?";
+            String sql = "select userID from tbl_user except "
+                    + "select userID from tbl_project_user where projectID = ?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, projectID);
             ResultSet rs = pstmt.executeQuery();
@@ -137,7 +137,7 @@ public class ProjectUserDAO implements ProjectUserDAOService {
         boolean isCheck = false;
         try {
             Connection conn = ConnectionFactory.getConnection();
-            String sql = "select * from tblProjectUserDetails where userID = ? and projectID = ?";
+            String sql = "select * from tbl_project_user where userID = ? and projectID = ?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, user.getUserID());
             pstmt.setInt(2, project.getProjectID());
@@ -156,11 +156,11 @@ public class ProjectUserDAO implements ProjectUserDAOService {
         boolean isCheck = false;
         try {
             Connection conn = ConnectionFactory.getConnection();
-            String sql = "insert into tblProjectUserDetails values(?,?,?)";
+            String sql = "insert into tbl_project_user(userID, projectID, getCreater) values(?,?,?)";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, pud.getUser().getUserID());
             pstmt.setInt(2, pud.getProject().getProjectID());
-            pstmt.setBoolean(3, pud.isCreater());
+            pstmt.setInt(3, pud.getCreater());
             pstmt.executeUpdate();
             isCheck = true;
         } catch (ClassNotFoundException | SQLException e) {
@@ -174,12 +174,12 @@ public class ProjectUserDAO implements ProjectUserDAOService {
         boolean isCheck = false;
         try {
             Connection conn = ConnectionFactory.getConnection();
-            String sql = "update tblProjectUserDetails set userID = ?, projectID = ?, isCreater = ? where project_userID = ?";
+            String sql = "update tbl_project_user set userID = ?, projectID = ?, getCreater = ? where project_userID = ?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, pud.getUser().getUserID());
             pstmt.setInt(2, pud.getProject().getProjectID());
             pstmt.setInt(3, pud.getProject_userID());
-            pstmt.setBoolean(4, pud.isCreater());
+            pstmt.setInt(4, pud.getCreater());
             pstmt.executeUpdate();
             isCheck = true;
         } catch (ClassNotFoundException | SQLException e) {
@@ -193,7 +193,7 @@ public class ProjectUserDAO implements ProjectUserDAOService {
         boolean isCheck = false;
         try {
             Connection conn = ConnectionFactory.getConnection();
-            String sql = "delete tblProjectUserDetails where projectID = ? and isCreater = 'false'";
+            String sql = "delete from tbl_project_user where projectID = ? and getCreater = 'false'";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, projectID);
             pstmt.executeUpdate();
@@ -209,7 +209,7 @@ public class ProjectUserDAO implements ProjectUserDAOService {
         boolean isExist = false;
         try {
             Connection conn = ConnectionFactory.getConnection();
-            String sql = "select * from tblProjectUserDetails where userID = ? and projectID = ?";
+            String sql = "select * from tbl_project_user where userID = ? and projectID = ?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, user.getUserID());
             pstmt.setInt(2, project.getProjectID());
@@ -228,7 +228,7 @@ public class ProjectUserDAO implements ProjectUserDAOService {
         boolean isExist = false;
         try {
             Connection conn = ConnectionFactory.getConnection();
-            String sql = "delete from tblProjectUserDetails where userID = ? and projectID = ?";
+            String sql = "delete from tbl_project_user where userID = ? and projectID = ?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, user.getUserID());
             pstmt.setInt(2, project.getProjectID());

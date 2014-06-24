@@ -20,7 +20,7 @@ public class Project {
     private Date startDate;
     private int duration;
     private ProjectType type;
-    boolean isActive;
+    int active;
 
     private List<User> userList = null;
     private List<User> userListNotJoin = null;
@@ -28,14 +28,14 @@ public class Project {
     public Project() {
     }
 
-    public Project(int projectID, String projectName, String description, Date startDate, int duration, ProjectType type, boolean isActive) {
+    public Project(int projectID, String projectName, String description, Date startDate, int duration, ProjectType type, int active) {
         this.projectID = projectID;
         this.projectName = projectName;
         this.description = description;
         this.startDate = startDate;
         this.duration = duration;
         this.type = type;
-        this.isActive = isActive;
+        this.active = active;
     }
 
     public int getProjectID() {
@@ -94,12 +94,12 @@ public class Project {
         this.type = type;
     }
 
-    public boolean isIsActive() {
-        return isActive;
+    public int getActive() {
+        return active;
     }
 
-    public void setIsActive(boolean isActive) {
-        this.isActive = isActive;
+    public void setActive(int active) {
+        this.active = active;
     }
 
     public List<User> getUserListNotJoin() {

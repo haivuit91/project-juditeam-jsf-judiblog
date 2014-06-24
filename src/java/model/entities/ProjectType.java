@@ -15,16 +15,16 @@ import java.util.List;
 public class ProjectType {
     private int typeID;
     private String typeName;
-    private boolean isActive;
+    private int active;
     private List<Project> projectList;
 
     public ProjectType() {
     }
 
-    public ProjectType(int typeID, String typeName, boolean isActive) {
+    public ProjectType(int typeID, String typeName, int active) {
         this.typeID = typeID;
         this.typeName = typeName;
-        this.isActive = isActive;
+        this.active = active;
     }
 
     public int getTypeID() {
@@ -43,12 +43,12 @@ public class ProjectType {
         this.typeName = typeName;
     }
 
-    public boolean isIsActive() {
-        return isActive;
+    public int getActive() {
+        return active;
     }
 
-    public void setIsActive(boolean isActive) {
-        this.isActive = isActive;
+    public void setActive(int active) {
+        this.active = active;
     }
 
     public List<Project> getProjectList() {

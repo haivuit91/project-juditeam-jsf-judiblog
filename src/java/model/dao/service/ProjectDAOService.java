@@ -7,7 +7,6 @@ package model.dao.service;
 
 import java.util.List;
 import model.entities.Project;
-import model.entities.User;
 
 /**
  *
@@ -75,14 +74,14 @@ public interface ProjectDAOService {
      * @param project The type of project
      * @return true if active successfully
      */
-    public boolean activeProjectType(Project project);
+    public boolean activeProject(Project project);
     
     /**
      * Inactive project
      * @param project The type of project
      * @return true if Inactive successfully
      */
-    public boolean inactiveProjectType(Project project);
+    public boolean inactiveProject(Project project);
      /**
      * get User list by attributes and keyword
      * @param key is attributes used to search
