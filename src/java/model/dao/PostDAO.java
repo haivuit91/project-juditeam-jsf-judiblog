@@ -33,12 +33,12 @@ public class PostDAO implements PostDAOService {
         Post item = new Post();
         item.setPostID(rs.getInt("postID"));
         item.setTitle(rs.getString("title"));
-        item.setPathContent(rs.getString("pathContent"));
-        item.setPathImage(rs.getString("pathImage"));
+        item.setContent(rs.getString("content"));
+        item.setImagePath(rs.getString("imagePath"));
         item.setPostDate(rs.getDate("postDate"));
-        item.setUser(UserDAO.getInstance().getUserByID(rs.getInt("userID")));
-        item.setCategory(CategoryDAO.getInstance().getCategoryByID(rs.getInt("categoryID")));
-        item.setActive(rs.getBoolean("isActive"));
+        item.setUserID(UserDAO.getInstance().getUserByID(rs.getInt("userID")));
+        item.setCatID(CategoryDAO.getInstance().getCategoryByID(rs.getInt("catID")));
+        item.setIsActive(rs.getBoolean("isActive"));
         return item;
     }
 
@@ -58,7 +58,7 @@ public class PostDAO implements PostDAOService {
     @Override
     public List<Post> getListPostByCategories(int c) throws Exception {
         List<Post> listPost = new ArrayList<>();
-        String sql = "select * from tblPost where categoryID = " + c + ";";
+        String sql = "select * from tblPost where catID = " + c + ";";
         Connection conn = ConnectionFactory.getConnection();
         PreparedStatement sm = conn.prepareStatement(sql);
         ResultSet rs = sm.executeQuery();
@@ -92,32 +92,32 @@ public class PostDAO implements PostDAOService {
 
     @Override
     public boolean updatePost(Post post) throws Exception {
-        String sql = "update tblPost set title=?,pathContent=?,pathImage=?,postDate=?,userID=?,categoryID=?,isActive=? where postID = ?";
+        String sql = "update tblPost set title=?,content=?,imagePath=?,postDate=?,userID=?,catID=?,isActive=? where postID = ?";
         Connection conn = ConnectionFactory.getConnection();
         PreparedStatement sm = conn.prepareStatement(sql);
         sm.setString(1, post.getTitle());
-        sm.setString(2, post.getPathContent());
-        sm.setString(3, post.getPathImage());
+        sm.setString(2, post.getContent());
+        sm.setString(3, post.getImagePath());
         sm.setDate(4, (Date) post.getPostDate());
-        sm.setInt(5, post.getUser().getUserID());
-        sm.setInt(6, post.getCategory().getCatID());
-        sm.setBoolean(7, post.isActive());
+        sm.setInt(5, post.getUserID().getUserID());
+        sm.setInt(6, post.getCatID().getCatID());
+        sm.setBoolean(7, post.isIsActive());
         sm.setInt(8, post.getPostID());
         return sm.executeUpdate() == 1;
     }
 
     @Override
     public boolean insertPost(Post post) throws Exception {
-        String sql = "insert into tblPost (title,pathContent,pathImage,postDate,userID,categoryID,isActive) values(?,?,?,?,?,?,?)";
+        String sql = "insert into tblPost (title,content,imagePath,postDate,userID,catID,isActive) values(?,?,?,?,?,?,?)";
         Connection conn = ConnectionFactory.getConnection();
         PreparedStatement sm = conn.prepareStatement(sql);
         sm.setString(1, post.getTitle());
-        sm.setString(2, post.getPathContent());
-        sm.setString(3, post.getPathImage());
+        sm.setString(2, post.getContent());
+        sm.setString(3, post.getImagePath());
         sm.setDate(4, (Date) post.getPostDate());
-        sm.setInt(5, post.getUser().getUserID());
-        sm.setInt(6, post.getCategory().getCatID());
-        sm.setBoolean(7, post.isActive());
+        sm.setInt(5, post.getUserID().getUserID());
+        sm.setInt(6, post.getCatID().getCatID());
+        sm.setBoolean(7, post.isIsActive());
         return sm.executeUpdate() == 1;
     }
 
@@ -141,13 +141,13 @@ public class PostDAO implements PostDAOService {
                 sql = "select * from tblPost where title like '%" + searchKey + "%' ";
                 break;
             case "user":
-                sql = "select postID,title,pathContent,tblPost.pathImage,postDate,tblPost.userID,categoryID,tblPost.isActive from tblPost inner join tblUser on tblPost.userID = tblUser.userID where userName like '%" + searchKey + "%'";
+                sql = "select postID,title,content,tblPost.imagePath,postDate,tblPost.userID,catID,tblPost.isActive from tblPost inner join tblUser on tblPost.userID = tblUser.userID where userName like '%" + searchKey + "%'";
                 break;
             case "fullName":
-                sql = "select postID,title,pathContent,tblPost.pathImage,postDate,tblPost.userID,categoryID,tblPost.isActive from tblPost inner join tblUser on tblPost.userID = tblUser.userID where fullName like '%" + searchKey + "%'";
+                sql = "select postID,title,content,tblPost.imagePath,postDate,tblPost.userID,catID,tblPost.isActive from tblPost inner join tblUser on tblPost.userID = tblUser.userID where fullName like '%" + searchKey + "%'";
                 break;
             case "content":
-                sql = "select postID,title,pathContent,tblPost.pathImage,postDate,tblPost.userID,categoryID,tblPost.isActive from tblPost inner join tblUser on tblPost.userID = tblUser.userID where pathContent like '%" + searchKey + "%'";
+                sql = "select postID,title,content,tblPost.imagePath,postDate,tblPost.userID,catID,tblPost.isActive from tblPost inner join tblUser on tblPost.userID = tblUser.userID where content like '%" + searchKey + "%'";
                 break;
         }
         PreparedStatement sm = conn.prepareStatement(sql);
