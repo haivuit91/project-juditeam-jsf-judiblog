@@ -6,10 +6,14 @@
 
 package bean;
 
-import java.util.Date;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import model.entities.Role;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
+import model.dao.UserDAO;
+import model.dao.service.UserDAOService;
+import model.entities.User;
 
 /**
  *
@@ -19,24 +23,46 @@ import model.entities.Role;
 @SessionScoped
 public class loginBean {
 
-    private int userID;
     private String userName;
     private String pwd;
-    private String fullName;
-    private Date birthday;
-    private int gender;
-    private String idCard;
-    private String address;
-    private String email;
-    private String phone;
-    private String pathImage;
-    private Role role;
-    private String idActive;
-    private int active;
+    private final HttpServletRequest httpServletRequest;
+    private final FacesContext facesContext;
+    private FacesMessage facesMessage;
     
+    UserDAOService USER_SERVICE = UserDAO.getInstance();
     
     public loginBean() {
-       
+       facesContext = FacesContext.getCurrentInstance();
+       httpServletRequest = (HttpServletRequest)facesContext.getExternalContext().getRequest();
+    }
+    
+    public  String login() {
+        if(USER_SERVICE.checkLogin(userName, pwd)) {
+            User user = USER_SERVICE.getUserByUserName(userName);
+            httpServletRequest.getSession().setAttribute(util.Constants.CURRENT_USER, user);
+            return "admin/admin";
+        } else {
+//            facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO, "Login", null);
+//            facesContext.addMessage(null, facesMessage);
+//            httpServletRequest.getSession().setAttribute("error", "Login error");
+            return "login";
+        }
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getPwd() {
+        return pwd;
+    }
+
+    public void setPwd(String pwd) {
+        this.pwd = pwd;
     }
     
 }
