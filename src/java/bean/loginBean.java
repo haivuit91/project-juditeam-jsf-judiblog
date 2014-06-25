@@ -38,8 +38,8 @@ public class loginBean {
     
     public  String login() {
         if(USER_SERVICE.checkLogin(userName, pwd)) {
-            User user = USER_SERVICE.getUserByUserName(userName);
-            httpServletRequest.getSession().setAttribute(util.Constants.CURRENT_USER, user);
+//            User user = USER_SERVICE.getUserByUserName(userName);
+//            httpServletRequest.getSession().setAttribute(util.Constants.CURRENT_USER, user);
             return "admin/admin";
         } else {
 //            facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO, "Login", null);
