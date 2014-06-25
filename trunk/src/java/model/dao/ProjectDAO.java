@@ -168,7 +168,7 @@ public class ProjectDAO implements ProjectDAOService {
         boolean isCheck = false;
         try {
             Connection conn = ConnectionFactory.getConnection();
-            String sql = "delete tbl_project where projectID = ?";
+            String sql = "delete from tbl_project where projectID = ?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, projectID);
             pstmt.executeUpdate();
