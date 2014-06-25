@@ -15,29 +15,27 @@ public class Post {
 
     private int postID;
     private String title;
-    private String pathContent;
-    private String pathImage;
+    private String content;
+    private String imagePath;
     private Date postDate;
-    private User user;
-    private Category category;
+    private User userID;
+    private Category catID;
     private boolean isActive;
 
     public Post() {
 
     }
 
-    public Post(int postID, String title, String pathContent, String pathImage, Date postDate, User user, Category category, boolean isActive) {
+    public Post(int postID, String title, String content, String imagePath, Date postDate, User userID, Category catID, boolean isActive) {
         this.postID = postID;
         this.title = title;
-        this.pathContent = pathContent;
-        this.pathImage = pathImage;
+        this.content = content;
+        this.imagePath = imagePath;
         this.postDate = postDate;
-        this.user = user;
-        this.category = category;
+        this.userID = userID;
+        this.catID = catID;
         this.isActive = isActive;
     }
-
-   
 
     public int getPostID() {
         return postID;
@@ -55,12 +53,44 @@ public class Post {
         this.title = title;
     }
 
-    public String getPathContent() {
-        return pathContent;
+    public String getContent() {
+        return content;
     }
 
-    public void setPathContent(String pathContent) {
-        this.pathContent = pathContent;
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
+    public Date getPostDate() {
+        return postDate;
+    }
+
+    public void setPostDate(Date postDate) {
+        this.postDate = postDate;
+    }
+
+    public User getUserID() {
+        return userID;
+    }
+
+    public void setUserID(User userID) {
+        this.userID = userID;
+    }
+
+    public Category getCatID() {
+        return catID;
+    }
+
+    public void setCatID(Category catID) {
+        this.catID = catID;
     }
 
     public boolean isIsActive() {
@@ -71,45 +101,10 @@ public class Post {
         this.isActive = isActive;
     }
 
-    
-    public String getPathImage() {
-        return pathImage;
-    }
+   
 
-    public void setPathImage(String pathImage) {
-        this.pathImage = pathImage;
-    }   
+   
 
-    public Date getPostDate() {
-        return postDate;
-    }
-
-    public void setPostDate(Date postDate) {
-        this.postDate = postDate;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
-    public boolean isActive() {
-        return isActive;
-    }
-
-    public void setActive(boolean isActive) {
-        this.isActive = isActive;
-    }
+   
 
 }
