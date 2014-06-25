@@ -45,7 +45,7 @@ public class PostDAO implements PostDAOService {
     @Override
     public List<Post> getListPost() throws Exception {
         List<Post> listPost = new ArrayList<>();
-        String sql = "select * from tblPost";
+        String sql = "select * from tbl_post";
         Connection conn = ConnectionFactory.getConnection();
         PreparedStatement sm = conn.prepareStatement(sql);
         ResultSet rs = sm.executeQuery();
@@ -58,7 +58,7 @@ public class PostDAO implements PostDAOService {
     @Override
     public List<Post> getListPostByCategories(int c) throws Exception {
         List<Post> listPost = new ArrayList<>();
-        String sql = "select * from tblPost where catID = " + c + ";";
+        String sql = "select * from tbl_post where catID = " + c + ";";
         Connection conn = ConnectionFactory.getConnection();
         PreparedStatement sm = conn.prepareStatement(sql);
         ResultSet rs = sm.executeQuery();
@@ -70,7 +70,7 @@ public class PostDAO implements PostDAOService {
 
     @Override
     public int getTotalPost() throws Exception {
-        String sql = "select count(*) as sum from tblPost";
+        String sql = "select count(*) as sum from tbl_post";
         Connection conn = ConnectionFactory.getConnection();
         PreparedStatement sm = conn.prepareStatement(sql);
         ResultSet rs = sm.executeQuery();
@@ -82,7 +82,7 @@ public class PostDAO implements PostDAOService {
 
     @Override
     public boolean deletePost(int postID) throws Exception {
-        String sql = "delete from tblPost where postID =?";
+        String sql = "delete from tbl_post where postID =?";
         Connection conn = ConnectionFactory.getConnection();
         PreparedStatement sm = conn.prepareStatement(sql);
         sm.setInt(1, postID);
@@ -92,7 +92,7 @@ public class PostDAO implements PostDAOService {
 
     @Override
     public boolean updatePost(Post post) throws Exception {
-        String sql = "update tblPost set title=?,content=?,imagePath=?,postDate=?,userID=?,catID=?,isActive=? where postID = ?";
+        String sql = "update tbl_post set title=?,content=?,imagePath=?,postDate=?,userID=?,catID=?,isActive=? where postID = ?";
         Connection conn = ConnectionFactory.getConnection();
         PreparedStatement sm = conn.prepareStatement(sql);
         sm.setString(1, post.getTitle());
@@ -108,7 +108,7 @@ public class PostDAO implements PostDAOService {
 
     @Override
     public boolean insertPost(Post post) throws Exception {
-        String sql = "insert into tblPost (title,content,imagePath,postDate,userID,catID,isActive) values(?,?,?,?,?,?,?)";
+        String sql = "insert into tbl_post (title,content,imagePath,postDate,userID,catID,isActive) values(?,?,?,?,?,?,?)";
         Connection conn = ConnectionFactory.getConnection();
         PreparedStatement sm = conn.prepareStatement(sql);
         sm.setString(1, post.getTitle());
@@ -123,7 +123,7 @@ public class PostDAO implements PostDAOService {
 
     @Override
     public boolean activePost(boolean isActive, int postID) throws Exception {
-        String sql = "update tblPost set isActive =? where postID = ?";
+        String sql = "update tbl_post set isActive =? where postID = ?";
         Connection conn = ConnectionFactory.getConnection();
         PreparedStatement sm = conn.prepareStatement(sql);
         sm.setBoolean(1, isActive);
@@ -138,16 +138,16 @@ public class PostDAO implements PostDAOService {
         List<Post> listPost = new ArrayList<>();
         switch (searchType) {
             case "title":
-                sql = "select * from tblPost where title like '%" + searchKey + "%' ";
+                sql = "select * from tbl_post where title like '%" + searchKey + "%' ";
                 break;
             case "user":
-                sql = "select postID,title,content,tblPost.imagePath,postDate,tblPost.userID,catID,tblPost.isActive from tblPost inner join tblUser on tblPost.userID = tblUser.userID where userName like '%" + searchKey + "%'";
+                sql = "select postID,title,content,tbl_post.imagePath,postDate,tbl_post.userID,catID,tbl_post.isActive from tbl_post inner join tblUser on tbl_post.userID = tblUser.userID where userName like '%" + searchKey + "%'";
                 break;
             case "fullName":
-                sql = "select postID,title,content,tblPost.imagePath,postDate,tblPost.userID,catID,tblPost.isActive from tblPost inner join tblUser on tblPost.userID = tblUser.userID where fullName like '%" + searchKey + "%'";
+                sql = "select postID,title,content,tbl_post.imagePath,postDate,tbl_post.userID,catID,tbl_post.isActive from tbl_post inner join tblUser on tbl_post.userID = tblUser.userID where fullName like '%" + searchKey + "%'";
                 break;
             case "content":
-                sql = "select postID,title,content,tblPost.imagePath,postDate,tblPost.userID,catID,tblPost.isActive from tblPost inner join tblUser on tblPost.userID = tblUser.userID where content like '%" + searchKey + "%'";
+                sql = "select postID,title,content,tbl_post.imagePath,postDate,tbl_post.userID,catID,tbl_post.isActive from tbl_post inner join tblUser on tbl_post.userID = tblUser.userID where content like '%" + searchKey + "%'";
                 break;
         }
         PreparedStatement sm = conn.prepareStatement(sql);
@@ -160,7 +160,7 @@ public class PostDAO implements PostDAOService {
 
     @Override
     public Post getPostByID(int postID) throws Exception {
-        String sql = "select * from tblPost where postID =? ";
+        String sql = "select * from tbl_post where postID =? ";
         Post post = null;
         Connection connection = ConnectionFactory.getConnection();
         PreparedStatement sm = connection.prepareStatement(sql);
@@ -174,7 +174,7 @@ public class PostDAO implements PostDAOService {
 
     @Override
     public int getNewPostID() throws Exception {
-        String sql = "SELECT IDENT_CURRENT('tblPost') as maxid ";
+        String sql = "SELECT IDENT_CURRENT('tbl_post') as maxid ";
         Connection connection = ConnectionFactory.getConnection();
         PreparedStatement sm = connection.prepareStatement(sql);
         ResultSet rs = sm.executeQuery();
@@ -186,7 +186,7 @@ public class PostDAO implements PostDAOService {
 
     @Override
     public boolean checkExitPost(Post post) throws Exception {
-        String sql = "select postID from tblPost where title = ? ";
+        String sql = "select postID from tbl_post where title = ? ";
         Connection connection = ConnectionFactory.getConnection();
         PreparedStatement sm = connection.prepareStatement(sql);
         sm.setString(1, post.getTitle());
