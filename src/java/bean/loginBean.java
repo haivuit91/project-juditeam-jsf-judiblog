@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package bean;
 
 import javax.faces.application.FacesMessage;
@@ -28,24 +27,24 @@ public class loginBean {
     private final HttpServletRequest httpServletRequest;
     private final FacesContext facesContext;
     private FacesMessage facesMessage;
-    
+
     UserDAOService USER_SERVICE = UserDAO.getInstance();
-    
+
     public loginBean() {
-       facesContext = FacesContext.getCurrentInstance();
-       httpServletRequest = (HttpServletRequest)facesContext.getExternalContext().getRequest();
+        facesContext = FacesContext.getCurrentInstance();
+        httpServletRequest = (HttpServletRequest) facesContext.getExternalContext().getRequest();
     }
-    
-    public  String login() {
-        if(USER_SERVICE.checkLogin(userName, pwd)) {
+
+    public String login() {
+        if (USER_SERVICE.checkLogin(userName, pwd)) {
 //            User user = USER_SERVICE.getUserByUserName(userName);
 //            httpServletRequest.getSession().setAttribute(util.Constants.CURRENT_USER, user);
-            return "admin/admin";
+            return "./registy.jsf";
         } else {
 //            facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO, "Login", null);
 //            facesContext.addMessage(null, facesMessage);
 //            httpServletRequest.getSession().setAttribute("error", "Login error");
-            return "login";
+            return "./home.jsf";
         }
     }
 
@@ -64,5 +63,5 @@ public class loginBean {
     public void setPwd(String pwd) {
         this.pwd = pwd;
     }
-    
+
 }
