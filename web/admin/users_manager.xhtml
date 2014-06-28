@@ -63,6 +63,10 @@
                                             <f:facet name="header">Phone</f:facet>
                                             <h:outputText value="#{userList.phone}" />
                                         </h:column>
+                                          <h:column>
+                                            <f:facet name="header">Role</f:facet>
+                                            <h:outputText value="#{userList.role.roleName}" />
+                                        </h:column>
                                         <h:column>
                                             <f:facet name="header">Status</f:facet>
                                             <h:outputText value="#{userList.active}" />
