@@ -23,7 +23,7 @@
         <ul class="nav navbar-top-links navbar-right">
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                    <i class="fa fa-user fa-fw"></i> haivv <i class="fa fa-caret-down"></i>
+                    <i class="fa fa-user fa-fw"></i> #{loginBean.userName} <i class="fa fa-caret-down"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-user">
                     <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
@@ -61,16 +61,24 @@
                             <a href="#"><i class="fa fa-users fa-fw"></i> Users Management<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <h:commandLink action="#{userManage.showPage()}" value="All users"/>
+                                    <h:commandLink action="#{userManager.showPage}" value="All users">
+                                        <f:param name="pageId" value="1" />
+                                    </h:commandLink>
                                 </li>
                                 <li>
-                                    <h:commandLink action="#{userManage.showPage()}" value="Admin"/>
+                                    <h:commandLink action="#{userManager.showPage}" value="Admin">
+                                        <f:param name="pageId" value="2" />
+                                    </h:commandLink>
                                 </li>
                                 <li>
-                                    <h:commandLink action="#{userManage.showPage()}" value="Member"/>
+                                    <h:commandLink action="#{userManager.showPage}" value="Member">
+                                        <f:param name="pageId" value="3" />
+                                    </h:commandLink>
                                 </li>
                                 <li>
-                                    <h:commandLink action="#{userManage.showPage()}" value="Add user"/>
+                                    <h:commandLink action="#{userManager.showPage}" value="Add user">
+                                        <f:param name="pageId" value="4" />
+                                    </h:commandLink>
                                 </li>
                             </ul>
                         </li>
