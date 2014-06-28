@@ -27,65 +27,46 @@
                         <div class="table-responsive">
                             <f:view>
                                 <h:form>
-<!--                                    <table class="table table-striped table-bordered table-hover" id="dataTables-example">
-                                        <thead>
-                                            <tr>
-                                                <th>User name</th>
-                                                <th>Full name</th>
-                                                <th>Birthday</th>
-                                                <th>Gender</th>
-                                                <th>ID Card</th>
-                                                <th>Address</th>
-                                                <th>Email</th>
-                                                <th>Phone</th>
-                                                <th>Status</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr class="odd gradeX">-->
-                                                <h:dataTable value="#{userManage.allUser}" var="userList" class="table table-striped table-bordered table-hover" id="dataTables">
+                                    <h:dataTable value="#{userManager.allUser}" var="userList" class="table table-striped table-bordered table-hover" id="dataTables">
 
-                                                    <h:column>
-                                                        <f:facet name="header">User name</f:facet>
-                                                        <a href="#{userList.userID}"><h:outputText value="#{userList.userName}" /></a>
-                                                    </h:column>
-                                                    <h:column>
-                                                        <f:facet name="header">Full name</f:facet>
-                                                        <h:outputText value="#{userList.fullName}" />
-                                                    </h:column>
-                                                    <h:column>
-                                                        <f:facet name="header">Birthday</f:facet>
-                                                        <h:outputText value="#{userList.birthday}" />
-                                                    </h:column>
-                                                    <h:column>
-                                                        <f:facet name="header">Gender</f:facet>
-                                                        <h:outputText value="#{userList.gender > 1 ? 'Female' : 'Male'}" />
-                                                    </h:column>
-                                                    <h:column>
-                                                        <f:facet name="header">ID Card</f:facet>
-                                                        <h:outputText value="#{userList.idCard}" />
-                                                    </h:column>
-                                                    <h:column>
-                                                        <f:facet name="header">Address</f:facet>
-                                                        <h:outputText value="#{userList.address}" />
-                                                    </h:column>
-                                                    <h:column>
-                                                        <f:facet name="header">Email</f:facet>
-                                                        <h:outputText value="#{userList.email}" />
-                                                    </h:column>
-                                                    <h:column>
-                                                        <f:facet name="header">Phone</f:facet>
-                                                        <h:outputText value="#{userList.phone}" />
-                                                    </h:column>
-                                                    <h:column>
-                                                        <f:facet name="header">Status</f:facet>
-                                                        <h:outputText value="#{userList.active}" />
-                                                    </h:column>
+                                        <h:column>
+                                            <f:facet name="header">User name</f:facet>
+                                            <a href="#{userList.userID}"><h:outputText value="#{userList.userName}" /></a>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">Full name</f:facet>
+                                            <h:outputText value="#{userList.fullName}" />
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">Birthday</f:facet>
+                                            <h:outputText value="#{userList.birthday}" />
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">Gender</f:facet>
+                                            <h:outputText value="#{userList.gender > 1 ? 'Female' : 'Male'}" />
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">ID Card</f:facet>
+                                            <h:outputText value="#{userList.idCard}" />
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">Address</f:facet>
+                                            <h:outputText value="#{userList.address}" />
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">Email</f:facet>
+                                            <h:outputText value="#{userList.email}" />
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">Phone</f:facet>
+                                            <h:outputText value="#{userList.phone}" />
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">Status</f:facet>
+                                            <h:outputText value="#{userList.active}" />
+                                        </h:column>
 
-                                                </h:dataTable>
-<!--                                            </tr>
-                                        </tbody>
-                                    </table>-->
+                                    </h:dataTable>
                                 </h:form>
                             </f:view>
                         </div>
