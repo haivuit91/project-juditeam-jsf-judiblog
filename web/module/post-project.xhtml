@@ -24,7 +24,7 @@
                             <div class="col-md-2" style="font-weight: bold">Project Name</div>
                             <div class="col-md-6">
                                 <h:inputText  value="#{projectBean.project.projectName}" id="projectName" class="form-control" >
-                                    <f:validateLength minimum="5" maximum="10" />
+                                    <f:validateLength minimum="5" maximum="100" />
                                 </h:inputText>
                             </div>
                             <div class="col-md-4">
@@ -36,7 +36,7 @@
                             <div class="col-md-2" style="font-weight: bold">Description</div>
                             <div class="col-md-6">
                                 <h:inputTextarea id="descriptiton" value="#{projectBean.project.description}" class="form-control" rows="3">
-                                    <f:validateLength minimum="2" />
+                                    <f:validateLength minimum="10" />
                                 </h:inputTextarea>
                             </div>
                             <div class="col-md-4">
@@ -59,12 +59,13 @@
                         <!--Duration-->
                         <div class="col-md-12" style="margin-bottom: 5px">
                             <div class="col-md-2" style="font-weight: bold">Duration</div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <h:inputText  value="#{projectBean.project.duration}" id="duration" class="form-control">
                                     <f:validateLongRange minimum="1" maximum="10000" />
+                                    <f:convertNumber minFractionDigits="1" maxFractionDigits="4" />
                                 </h:inputText>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <h:message for="duration" style="color:red" /> 
                             </div>
                         </div>
@@ -73,23 +74,37 @@
                             <div class="col-md-2" style="font-weight: bold">Project Type</div>
                             <div class="col-md-4">
                                 <h:selectOneMenu id="projectType" class="form-control" value="#{projectBean.projectType}"
-                                                 converter="#{typeIdConverter}" >
+                                                 converter="typeConverter" >
                                     <f:selectItems value="#{projectBean.types}" var="projectType"
-                                                   itemValue="#{projectType}" itemLabel="#{projectType.typeName}" />			
+                                                   itemValue="#{projectType}" itemLabel="#{projectType.typeName}" />
                                 </h:selectOneMenu>
                             </div>
                             <div class="col-md-6">
                                 <h:message for="projectType" style="color:red" /> 
                             </div>
                         </div>
+<!--                        <div class="col-md-12" style="margin-bottom: 5px">
+                            <div class="col-md-2" style="font-weight: bold">Project Type</div>
+                            <div class="col-md-4">
+                                <h:selectOneMenu id="type" class="form-control" value="#{projectBean.typeName}" >
+                                    <f:selectItem itemValue="J2SE" itemLabel="J2SE" />
+                                    <f:selectItem itemValue="iOS" itemLabel="iOS" />
+                                </h:selectOneMenu>
+                            </div>
+                            <div class="col-md-6">
+                                <h:message for="type" style="color:red" /> 
+                            </div>
+                        </div>-->
                         <div class="col-md-6" style="margin-bottom: 5px">
                             <h:commandButton value="Reset" class=" col-md-3 col-md-offset-1 btn btn-danger"/> 
-                            <h:commandButton value="POST" class=" col-md-3 col-md-offset-1 btn btn-primary"/> 
+                            <h:commandButton value="Post" action="#{projectBean.createProject()}" class=" col-md-3 col-md-offset-1 btn btn-primary"/> 
+                        </div>
+                        <div class="col-md-6" style="margin-bottom: 5px">
+                            <h:messages />
                         </div>
                     </h:form>
                 </f:view>
             </div>
-
         </div>
 
 
