@@ -36,7 +36,7 @@ public class LoginBean {
     }
 
     public String login() {
-        if (USER_SERVICE.checkLogin(userName, pwd)) {
+        if (!USER_SERVICE.checkLogin(userName, pwd)) {
 //            User user = USER_SERVICE.getUserByUserName(userName);
 //            httpServletRequest.getSession().setAttribute(util.Constants.CURRENT_USER, user);
             return "./registation.jsf";
