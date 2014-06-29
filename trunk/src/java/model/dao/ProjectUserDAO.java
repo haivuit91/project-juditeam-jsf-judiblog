@@ -117,10 +117,11 @@ public class ProjectUserDAO implements ProjectUserDAOService {
         List<User> userList = new ArrayList<>();
         try {
             Connection conn = ConnectionFactory.getConnection();
-            String sql = "select userID from tbl_user except "
-                    + "select userID from tbl_project_user where projectID = ?";
+//            String sql = "select userID from tbl_user except "
+//                    + "select userID from tbl_project_user where projectID = ?";
+            String sql = "select userID from tbl_user ";
             PreparedStatement pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1, projectID);
+//            pstmt.setInt(1, projectID);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
                 User user = UserDAO.getInstance().getUserByID(rs.getInt("userID"));

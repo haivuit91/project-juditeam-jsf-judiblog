@@ -19,33 +19,31 @@ import model.entities.ProjectType;
  *
  * @author cong0_000
  */
-@FacesConverter
-public class TypeIdConverter implements Converter {
+@FacesConverter("typeConverter")
+public class TypeIDConverter implements Converter {
 
     private final ProjectTypeDAOService TYPE_SERVICE = ProjectTypeDAO.getInstance();
 
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
-        if (value == null || value.isEmpty()) {
-            return null;
+        ProjectType projectType = null;
+        if (value != null) {
+            projectType = TYPE_SERVICE.getTypeByName(value);
+            projectType.setTypeName(value);
         }
-        try {
-            ProjectType projectType = TYPE_SERVICE.getTypeByName(value);
-            return projectType;
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-            throw new ConverterException(new FacesMessage("Cann't convert %s to Project Type!", value), e);
-        }
+        return projectType;
     }
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
-        if(!(value instanceof ProjectType)){
-            return null;
+        String name = "";
+        if(value instanceof ProjectType){
+            ProjectType projectType = (ProjectType) value;
+            name = projectType.getTypeName();
+        }else if( value instanceof String){
+            name = (String)value;
         }
-        ProjectType projectType = (ProjectType) value;
-        String typeName = projectType.getTypeName();
-        return typeName;
+        return name;
     }
 
 }

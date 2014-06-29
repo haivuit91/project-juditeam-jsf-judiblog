@@ -5,10 +5,14 @@
  */
 package bean;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
 import model.dao.ProjectDAO;
 import model.dao.ProjectTypeDAO;
 import model.dao.ProjectUserDAO;
@@ -39,16 +43,30 @@ public class ProjectBean {
     public ProjectBean() {
     }
 
-    @PostConstruct
-    public void initNewRequest() {
-        types = TYPE_SERVICE.getTypes();
-    }
-
     private Project project = new Project();
     private ProjectType projectType;
     private List<ProjectType> types;
     private String typeName;
 
+    public void createProject(){
+        String msg = "";
+        String projectName = getProject().getProjectName();
+        String description = getProject().getDescription();
+        Date startDate = getProject().getStartDate();
+        java.sql.Date date = new java.sql.Date(startDate.getTime());
+        int duration = getProject().getDuration();
+        ProjectType type = this.projectType;
+        Project p = new Project(1, projectName, description, date, duration, type, 1);
+        if(PROJECT_SERVICE.createProject(p)){
+            msg += "Post project Successfully";
+        }else{
+            msg += "Post project Failed";
+        }
+        FacesMessage message = new FacesMessage(msg, "Message!");
+        FacesContext.getCurrentInstance().addMessage("Message!", message);
+    }
+    
+    
     /**
      * @return the projectType
      */
@@ -67,6 +85,7 @@ public class ProjectBean {
      * @return the types
      */
     public List<ProjectType> getTypes() {
+        types = TYPE_SERVICE.getTypes();
         return types;
     }
 
